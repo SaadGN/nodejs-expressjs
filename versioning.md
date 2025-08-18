@@ -3,7 +3,7 @@
 ## express version: 
 -  version : ^5.1.0
 
-### First part : 5
+### *First part* : 5
 -    Major release - Major/Breaking update
 -    i.e. : 6.0.0
 -           7.1.1
@@ -14,14 +14,14 @@
 -  i.e. : 5.2.0
 -           5.3.1 
 
-### Third part : 0
+### *Third part* : 0
 -    Minor changes [ optional updates ]
 -    i.e : 5.1.1
 -          5.1.3
 
 ## Version Symbols: 
 
-# ` ^ ` caret symbol means : 
+### ` ^ ` *caret symbol means* : 
 -   update the express to its latest minor and recommended release    
   - Current: `^5.1.0`  
 
@@ -30,7 +30,7 @@
   - **Not allowed**: `6.0.0`
 
 
-# ` ~ ` tilde symbol means : 
+### ` ~ ` *tilde symbol means* : 
 -   update the express just to its latest minor release
 -   such as : current = ~5.1.0
    
@@ -39,5 +39,5 @@
 - **Not allowed**: `5.2.0`
    
 
-# no symbol means : 
+### *no symbol means* : 
 -   do not update any version automatically
