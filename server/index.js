@@ -2,21 +2,47 @@ const http = require('http')
 
 const fs = require('fs')
 
+const url = require('url')
+// create server 
+
+//handling URLs
 
 const myServer = http.createServer((req, res) => {
 
-    let log = `${Date.now()} : ${req.url} :  new requewst recieved\n`
+    if (req.url === "/favicon.ico") return res.end();
+
+    const log = `${Date.now()} : ${req.url}  , ${req.method}  ,  new request recieved\n`
+
+    const myUrl = url.parse(req.url,true);
+  //  console.log(myUrl)
 
     fs.appendFile('log.txt', log, (err, data) => {
-        switch(req.url){
-            case '/' : res.end("HomePage")
+
+        switch (myUrl.pathname) {
+            case '/':
+                res.end("HomePage")
+                break;
+
+            case '/about': 
+            const username = myUrl.query.myname;
+            res.end(`Hi from ,${username}`)
+                break;
+
+            case '/signup' : 
+            if(req.method === 'GET') {
+                res.end('This is a signup form ')
+            } else if(req.methond === 'POST') {
+                //DB query
+                req.end('Succes form submitted')
+            }
             break;
-            case '/about' : res.end("HTTP SERVER using nodejs")
-            break;
+
             default:
-                res.end("Hello from Server windows")
+                res.end("404 Not Found")
                 break;
         }
+
+
     });
 
 });
