@@ -51,10 +51,10 @@ const app = express();
 
 
 app.get("/",(req,res) => {
-    return res.end("Hello from HomePage"+ "\nHey " + req.query.name)
+    return res.send("Hello from HomePage"+ "\nHey " + req.query.name)
 })
 app.get("/about",(req,res) => {
-    return res.end("Hello from about Page" + "\nHey " + req.query.name)
+    return res.send("Hello from about Page" + "\nHey " + req.query.name)
 })
 
 app.listen(8000 , ()=> console.log("Server Started!!!"))
