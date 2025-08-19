@@ -97,14 +97,17 @@ app
 
 // ***POST /api/users   =>   create new users [JSON]***
 app.post('/api/users', (req, res) => {
-    
-    const body = req.body
-    users.push( { id : users.length+1 , ...body } )
-    fs.writeFile('./MOCK_DATA.json' , JSON.stringify(users), (err,data) => {
-         return res.json({ status: "Success",id : users.length  })
-    })
+    const body = req.body;
 
-   
-})
+    users.push({ id: users.length + 1, ...body });
+
+    fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err) => {
+        if (err) {
+            return res.status(500).json({ status: "Error", message: "Failed to save user" });
+        }
+        return res.status(201).json({ status: "Success", id: users.length });
+    });
+});
+
 
 app.listen(port, () => console.log('Project Server Started!!!'))
