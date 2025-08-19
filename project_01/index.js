@@ -2,8 +2,14 @@ const express = require('express')
 
 const users = require('./MOCK_DATA.json')
 
+const fs = require('fs')
+
 const app = express()
 const port = 8000
+
+
+//MiddleWare
+app.use(express.urlencoded({ extended:false }));
 
 // render html request
 app.get('/users', (req, res) => {
@@ -68,16 +74,37 @@ app
         return res.json({ status: "pending" })
     })
     .delete((req, res) => {
-        //TODO : delete an user with id
-        return res.json({ status: "pending" })
-    })
+    const id = Number(req.params.id);
+    const index = users.findIndex((user) => user.id === id);
+
+    if (index === -1) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    // Remove user from array
+    users.splice(index, 1);
+
+    // Update the JSON file
+    fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err) => {
+        if (err) {
+            return res.status(500).json({ error: "Failed to delete user" });
+        }
+        return res.json({ status: "success", id });
+    });
+})
 
 
 
 // ***POST /api/users   =>   create new users [JSON]***
 app.post('/api/users', (req, res) => {
-    //TODO : create new user
-    return res.json({ status: "pending" })
+    
+    const body = req.body
+    users.push( { id : users.length+1 , ...body } )
+    fs.writeFile('./MOCK_DATA.json' , JSON.stringify(users), (err,data) => {
+         return res.json({ status: "Success",id : users.length  })
+    })
+
+   
 })
 
 app.listen(port, () => console.log('Project Server Started!!!'))
