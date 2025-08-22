@@ -3,8 +3,18 @@ const jwt = require("jsonwebtoken")
 const secret = "123@123"
 
 function setUser(user) {
-  const payload = { _id: user._id, email: user.email };
-  return jwt.sign(payload, secret, { expiresIn: "1h" });
+//  const payload = { _id: user._id, email: user.email };
+  return jwt.sign({
+  _id : user.id,
+  email : user.email,
+  role : user.role,
+    
+  }
+  ,
+  secret
+  )
+    // payload, 
+    // secret, { expiresIn: "1h" });
   // return jwt.sign(user,secret);
 }
 
